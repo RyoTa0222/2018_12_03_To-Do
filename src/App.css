@@ -1,0 +1,162 @@
+
+.title{
+    padding: 30px;
+    margin: 0;
+    font-size: 4rem;
+    padding-left: 55px;
+}
+.title_group{
+    position: relative;
+}
+.title::after{
+    content:'';
+    display: block;
+    width: 382px;
+    height: 1.5rem;
+    background: lightgreen;
+    border-radius: 5px;
+    z-index: -1;
+    position: absolute;
+    top: 86px;
+    left: 46px;
+    opacity: 0.5;
+}
+
+/*リスト*/
+.ul_todo{
+    list-style: none;
+    margin:0 auto 30px;
+}
+.ul_todo li{
+    font-size: 2rem;
+    line-height: 1.5rem;
+    font-weight: bold;
+    margin-bottom:2rem;
+    position: relative;
+}
+.ul_todo li::after{
+    content: "";
+    display: block;
+    width: 70%;
+    height: 2px;
+    background:#a1a3a6;
+    position: absolute;
+    margin-left: 8rem;
+}
+
+/*削除ボタン*/
+.ul_todo a{
+    margin: 0 1rem;
+    text-decoration: none;
+    font-size: 1rem;
+    display: inline-block;
+    padding: 1rem;
+    border: solid 2px red;
+    border-radius: 5px;
+    color: red;
+    text-align: center;
+    position: relative;
+    text-transform: uppercase;
+}
+.ul_todo a,
+.ul_todo a::after{
+    transition: all 0.3s ease-in-out;
+}
+.ul_todo a::before,
+.ul_todo a::after{
+    background: red;
+    content: '';
+    position: absolute;
+    z-index: -1;
+}
+.ul_todo a:hover{
+    color:white;
+}
+.ul_todo a::after{
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 0;
+}
+.ul_todo a:hover::after {
+    width: 100%;
+}
+
+
+/*入力要素*/
+
+.input_todo{
+    width: 100%;
+    margin-top: 3rem;
+    margin-left: 168px;
+    position: relative;
+    margin-bottom: 4rem;
+}
+.input_todo input[type="text"]{
+    width : 67%;
+    min-height: 2rem;
+    padding: 16px 0;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 5px;
+    border: solid 2px #a1a3a6;
+    word-break: keep-all;
+    white-space: normal;
+}
+::-webkit-input-placeholder{
+    font-size: 2rem;
+    padding-left: 0.5rem;
+    color: #bfc5ca;
+}
+.input_todo input[type="text"]:focus{
+    border: solid 2px #00aeef;
+    outline: none;
+    background: rgba(173,224,238,0.3);
+}
+.input_todo input[type="text"]:active{
+    outline: none;
+}
+/*追加*/
+.input_todo button{
+    background: none;
+    border: 2px solid deepskyblue;
+    border-radius: 5px;
+    color: deepskyblue;
+    display: block;
+    font-size: 1rem;
+    margin: 0 1rem;
+    padding: 19px 9px;
+    position: relative;
+    text-transform: uppercase;
+}
+.input_todo button,
+.input_todo button::after{
+    transition: all 0.3s ease-in-out;
+}
+.input_todo button::before,
+.input_todo button::after{
+    background: deepskyblue;
+    content: '';
+    position: absolute;
+    z-index: -1;
+}
+.input_todo button:hover{
+    color: white;
+}
+.input_todo button::after{
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 0;
+}
+.input_todo button:hover::after{
+    width: 100%;
+}
+.button_position{
+    position: absolute;
+    top: 6px;
+    left: -127px;
+}
+.input_todo button:focus{
+    outline: none;
+}
