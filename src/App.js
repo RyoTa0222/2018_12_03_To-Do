@@ -45,7 +45,8 @@ class App extends Component {
                 {title: 'Javascript覚える'},
                 {title: 'jQuery覚える'},
                 {title: 'ES2015覚える'},
-                {title: 'React覚える'}
+                {title: 'React覚える'},
+                {title: '隼人を倒す'},
             ]
         };
         this.addTodo = this.addTodo.bind(this);
