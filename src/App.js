@@ -20,6 +20,8 @@ class App extends Component {
         };
         this.addTodo = this.addTodo.bind(this);
         this.deleteTodo = this.deleteTodo.bind(this);
+        this.changeTodo = this.changeTodo.bind(this);
+        this.storageTodo = this.storageTodo.bind(this);
     }
 
 
@@ -44,6 +46,17 @@ class App extends Component {
             todo : this.state.todo
         });
     }
+
+    //変更と保存
+    changeTodo(i){
+        this.state.todo.replace(
+            (this.state.todo[i].title), '<input type="text"  placeholder="メモを記入してください" />'
+    )
+    }
+    storageTodo(i){
+
+    }
+
 
     render() {
     return (

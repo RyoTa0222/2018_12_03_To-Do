@@ -2,7 +2,7 @@
 .title{
     padding: 30px;
     margin: 0;
-    font-size: 4rem;
+    font-size: 7vw;
     padding-left: 55px;
 }
 .title_group{
@@ -11,14 +11,14 @@
 .title::after{
     content:'';
     display: block;
-    width: 382px;
-    height: 1.5rem;
+    width: 42vw;
+    height: 3.5vw;
     background: lightgreen;
     border-radius: 5px;
     z-index: -1;
     position: absolute;
-    top: 86px;
-    left: 46px;
+    bottom: 38px;
+    left: 48px;
     opacity: 0.5;
 }
 
@@ -45,43 +45,45 @@
 }
 
 /*削除ボタン*/
-.ul_todo a{
+.ul_todo button{
     margin: 0 1rem;
-    text-decoration: none;
+    background:transparent;
     font-size: 1rem;
     display: inline-block;
     padding: 1rem;
     border: solid 2px red;
     border-radius: 5px;
     color: red;
-    text-align: center;
+
     position: relative;
     text-transform: uppercase;
 }
-.ul_todo a,
-.ul_todo a::after{
+.ul_todo button,
+.ul_todo button::after{
     transition: all 0.3s ease-in-out;
 }
-.ul_todo a::before,
-.ul_todo a::after{
+.ul_todo button::before,
+.ul_todo button::after{
     background: red;
     content: '';
     position: absolute;
     z-index: -1;
 }
-.ul_todo a:hover{
+.ul_todo button:hover{
     color:white;
 }
-.ul_todo a::after{
+.ul_todo button::after{
     height: 100%;
     left: 0;
     top: 0;
     width: 0;
 }
-.ul_todo a:hover::after {
+.ul_todo button:hover::after {
     width: 100%;
 }
-
+.ul_todo button:focus{
+    outline:none;
+}
 
 /*入力要素*/
 
