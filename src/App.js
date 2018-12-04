@@ -1,31 +1,7 @@
 import React, { Component } from 'react';
 import {List} from './list.js'
+import {Input} from './input.js'
 import './App.css'
-
-//子コンポーネント(List)
-
-
-//子コンポーネント(Input)
-class Input extends Component {
-    constructor(props){
-        super(props);
-        this.addTodo = this.addTodo.bind(this);
-    }
-    addTodo(){
-        this.props.addTodo(this.refs.newText.value);
-        this.refs.newText.value='';
-    }
-    render(){
-        return (
-            <div class="input_todo">
-                <input type="text" ref="newText" placeholder="メモを記入してください" className="input_textarea" autoFocus="focus" />
-                <div class="button_position">
-                    <button onClick={this.addTodo} className="button_add">Addition</button>
-                </div>
-            </div>
-        )
-    }
-}
 
 
 //親コンポーネント(app)
