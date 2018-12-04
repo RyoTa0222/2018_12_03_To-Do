@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
+import {List} from './list.js'
 import './App.css'
+
 //子コンポーネント(List)
-function List(props){
-    return(
-        <ul class="ul_todo">
-            {props.todo.map((todo, i) => {
-                return <li key={i}><a href="#" onClick={() => props.deleteTodo(i)}>delete</a>
-                    {todo.title}</li>
-            })}
-        </ul>
-    )
-}
+
 
 //子コンポーネント(Input)
 class Input extends Component {
@@ -25,7 +18,7 @@ class Input extends Component {
     render(){
         return (
             <div class="input_todo">
-                <input type="text" ref="newText" placeholder="メモを記入してください" className="input_textarea"/>
+                <input type="text" ref="newText" placeholder="メモを記入してください" className="input_textarea" autoFocus="focus" />
                 <div class="button_position">
                     <button onClick={this.addTodo} className="button_add">Addition</button>
                 </div>
