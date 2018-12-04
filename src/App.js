@@ -47,8 +47,8 @@ class App extends Component {
 
     render() {
     return (
-      <div class="todo">
-          <div class="title_group">
+      <div className="todo">
+          <div className="title_group">
               <h1 className="title">TODOアプリ</h1>
           </div>
           <List todo={this.state.todo} deleteTodo={this.deleteTodo}/>

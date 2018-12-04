@@ -11,9 +11,9 @@ export class Input extends Component {
     }
     render(){
         return (
-            <div class="input_todo">
+            <div className="input_todo">
                 <input type="text" ref="newText" placeholder="メモを記入してください" className="input_textarea" autoFocus="focus" />
-                <div class="button_position">
+                <div className="button_position">
                     <button onClick={this.addTodo} className="button_add">Addition</button>
                 </div>
             </div>
