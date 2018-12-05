@@ -14,7 +14,7 @@ export class Input extends Component {
             <div className="input_todo">
                 <input type="text" ref="newText" placeholder="メモを記入してください" className="input_textarea" autoFocus="focus" />
                 <div className="button_position">
-                    <button onClick={this.addTodo} className="button_add">Addition</button>
+                    <button onClick={this.addTodo} className="button_add">追加</button>
                 </div>
             </div>
         )
