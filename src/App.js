@@ -35,22 +35,29 @@ class App extends Component {
             todo : this.state.todo
         });
     }
-    //削除機能
-    deleteTodo(i){
+    //取り消し機能
+    deleteTodo(i,{title}){
         //削除
-        this.state.todo.splice(i, 1);
+        const todo_delete = this.state.todo.slice();
+        //todo_delete[i] = (({title}) =>
+        //    ({title: <del>{title}</del>}));
+
+        todo_delete[i] = {title: <del>delete</del>};
+
+
         //保存
         this.setState({
-            todo : this.state.todo
+            todo : todo_delete
         });
     }
 
     //変更と保存
     changeTodo(i){
-        const todo_copy = this.state.todo.slice();
-        todo_copy[i] = {title: 'Update'};
+        const todo_update = this.state.todo.slice();
+        //todo_update[i] ={title: ''};
+        todo_update[i] = {title: 'Update'};
         this.setState({
-            todo : todo_copy
+            todo : todo_update
         });
     }
 
