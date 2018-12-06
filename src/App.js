@@ -36,15 +36,14 @@ class App extends Component {
         });
     }
     //取り消し機能
-    deleteTodo(i,{title}){
-        //削除
+    deleteTodo(i){
+        //コピー
         const todo_delete = this.state.todo.slice();
         //todo_delete[i] = (({title}) =>
         //    ({title: <del>{title}</del>}));
 
+        //取り消し線
         todo_delete[i] = {title: <del>delete</del>};
-
-
         //保存
         this.setState({
             todo : todo_delete
@@ -53,9 +52,11 @@ class App extends Component {
 
     //変更と保存
     changeTodo(i){
+        //コピー
         const todo_update = this.state.todo.slice();
         //todo_update[i] ={title: ''};
         todo_update[i] = {title: 'Update'};
+        //保存
         this.setState({
             todo : todo_update
         });

@@ -6,9 +6,11 @@ export function List(props){
         <ul className="ul_todo">
             {props.todo.map((todo, i) => {
                 return <li key={i}>
-                    <button onClick={() => props.deleteTodo(i)}>完了</button>
                     {todo.title}
-                    <button onClick={() => props.changeTodo(i)}  className="button_change">変更</button>
+                    <div className="btn_list_position">
+                        <button onClick={() => props.deleteTodo(i)} className="button button_delete">完了</button>
+                        <button onClick={() => props.changeTodo(i)}  className="button button_change">変更</button>
+                    </div>
                     {/*<button onClick={() => props.storageTodo(i)} className="button_storage">保存</button>*/}
                     </li>
             })}
