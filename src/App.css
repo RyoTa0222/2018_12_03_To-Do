@@ -1,3 +1,17 @@
+/*ローディング*/
+.icon_loading{
+    position: fixed;
+    top: 50vh;
+    left: 50vw;
+}
+#icon_loading{
+    display: block;
+}
+#main_todo{
+    display: none;
+}
+
+
 /*タイトル*/
 .title{
     width: 100%;
@@ -227,3 +241,5 @@
         color: #bfc5ca;
     }
 }
+
+

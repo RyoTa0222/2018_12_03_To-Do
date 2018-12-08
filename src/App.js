@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import {List} from './list.js'
 import {Input} from './input.js'
-//import {Dialog} from './dialog.js'
 import './App.css'
 import Loader from 'react-loader-spinner'
 
@@ -24,8 +23,16 @@ class App extends Component {
         this.addTodo = this.addTodo.bind(this);
         this.deleteTodo = this.deleteTodo.bind(this);
         this.changeTodo = this.changeTodo.bind(this);
-      //  this.storageTodo = this.storageTodo.bind(this);
     }
+
+    //ローディング
+    componentWillMount() {
+        setTimeout( function() {
+            document.getElementById("icon_loading").style.display = "none";
+                document.getElementById("main_todo").style.display = "block";}
+            , 3000 );
+    }
+
     //新規追加
     addTodo(value){
         //追加
@@ -55,33 +62,43 @@ class App extends Component {
         //コピー
         const todo_update = this.state.todo.slice();
         //dialog表示
-        const dialog = window.prompt("メモを記入してください", "");
+        const dialog = window.prompt("変更内容を保存します", "");
         //変更
-        todo_update[i] = {title: dialog};
+        if(dialog.length === 0){
+            window.alert('キャンセルされました');
+
+
+        }else{
+            todo_update[i] = {title: dialog};
+        }
+
+
         //更新
         this.setState({
             todo : todo_update
         });
     }
 
-
-
     render() {
     return (
       <div className="todo">
-          <div className="title_group">
-              <h1 className="title">TODOアプリ</h1>
+          <div id="main_todo">
+              <div className="title_group">
+                  <h1 className="title">TODOアプリ</h1>
+              </div>
+              <List todo={this.state.todo}
+                    deleteTodo={this.deleteTodo}
+                    changeTodo={this.changeTodo}/>
+              <Input addTodo={this.addTodo} />
           </div>
-          <List todo={this.state.todo}
-                deleteTodo={this.deleteTodo}
-                changeTodo={this.changeTodo}/>
-          <Input addTodo={this.addTodo} />
-          <Loader
-              type="CradleLoader"
-              color="#00BFFF"
-              height="100"
-              width="100"
-          />
+          <div id="icon_loading" className="icon_loading">
+              <Loader
+                  type="CradleLoader"
+                  color="#000"
+                  height="100"
+                  width="100"
+              />
+          </div>
       </div>
     );
   }
