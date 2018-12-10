@@ -64,7 +64,7 @@ class App extends Component {
         //dialog表示
         const dialog = window.prompt("変更内容を保存します", "");
         //変更
-        if(dialog.length === 0){
+        if(dialog === null || dialog.length === 0){
             window.alert('キャンセルされました');
 
 
