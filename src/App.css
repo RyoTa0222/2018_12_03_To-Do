@@ -1,14 +1,13 @@
 /*ローディング*/
-.icon_loading{
-    position: fixed;
-    top: 50vh;
-    left: 50vw;
-}
 #icon_loading{
-    display: block;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
 }
 #main_todo{
     display: none;
+
 }
 
 
@@ -18,7 +17,7 @@
     font-size: 7vw;
 }
 .title_group{
-    width: 70%;
+    width: 68%;
     margin: 2rem auto;
     position: relative;
 }
@@ -50,6 +49,7 @@
     font-weight: bold;
     margin: 0 auto;
     position: relative;
+    text-indent: 2rem;
 }
 .ul_todo li::after{
     content: "";
@@ -156,7 +156,7 @@
 .input_todo{
     width: 70%;
     position: relative;
-    margin: 3rem auto 4rem;
+    margin: 3rem auto 3rem;
 }
 .input_todo input[type="text"]{
     width : 100%;
@@ -167,6 +167,7 @@
     border: solid 2px #00aeef;
     word-break: keep-all;
     white-space: normal;
+    text-indent: 1rem;
 }
 ::-webkit-input-placeholder{
     font-size: 2rem;
