@@ -15,6 +15,7 @@ class App extends Component {
         super(props);
         this.state = { visible: false };
         this.state = {
+            id: 0,
             todo: [
                 {title: 'Javascript覚える'},
                 {title: 'jQuery覚える'},
@@ -29,7 +30,7 @@ class App extends Component {
         this.addTodo = this.addTodo.bind(this);
         this.show = this.show.bind(this);
         this.hide = this.hide.bind(this);
-     //   this.Enter_modal=this.Enter_modal.bind(this)
+        this.Enter_modal=this.Enter_modal.bind(this);
     }
 
     //ローディング
@@ -37,18 +38,18 @@ class App extends Component {
         setTimeout( function() {
             document.getElementById("icon_loading").style.display = "none";
                 document.getElementById("main_todo").style.display = "block";}
-            , 3000 );
+            , 2000 );
     }
 
     //modalの表示
-    show(todo, i) {
-        const todo_value = this.state.todo.slice();
-        todo_value[i] =  {title_modal: this.state.todo.title};
-        //更新
+    show(i) {
         this.setState({
-            todo : this.state.todo
+            id: i,
+            todo: this.state.todo
         });
-        this.setState({ visible: true });
+        this.setState(
+            { visible: true }
+            );
     }
 　　 //modalの非表示
     hide() {
@@ -57,30 +58,40 @@ class App extends Component {
 
     //modalで入力した内容の更新
     changeTodo(value){
-        var todo_change = this.state.todo.title_modal;
-        this.state.todo.title_modal = value ;
-        todo_change = value;
-        this.setState({
-            todo : todo_change
-        });
-        this.setState({ visible: false });
+        if( value!== '' ){
+            //内容の変更
+            const modal_input = this.state.todo.slice();
+            modal_input[this.state.id] = {title: value};
+            //更新
+            this.setState({
+                todo : modal_input
+            });
+            //modalの非表示
+            this.setState({ visible: false });
+        }else{
+        }
+    }
+    //Enter_modalで入力した内容の更新
+    Enter_modal(event, value){
+        if( event.keyCode === 13 ){
+            if( value!=='' ){
+                //内容の変更
+                const modal_input = this.state.todo.slice();
+                modal_input[this.state.id] = {title: value};
+                //更新
+                this.setState({
+                    todo : modal_input
+                });
+                //modalの非表示
+                this.setState({ visible: false });
+            }else{
+            }
+        }
     }
 
     //新規追加
     addTodo(value){
-        //追加
-        this.state.todo.push({
-            title: value
-        });
-        //更新
-        this.setState({
-            todo : this.state.todo
-        });
-    }
-
-    //Enterによるsubmit
-    Enter(event, value){
-        if( event.keyCode === 13 ){
+        if(value !== ''){
             //追加
             this.state.todo.push({
                 title: value
@@ -89,9 +100,26 @@ class App extends Component {
             this.setState({
                 todo : this.state.todo
             });
+        }else{
         }
     }
 
+    //Enter_新規追加
+    Enter(event, value){
+        if( event.keyCode === 13 ){
+            if( value !== '' ){
+                //追加
+                this.state.todo.push({
+                    title: value
+                });
+                //更新
+                this.setState({
+                    todo : this.state.todo
+                });
+            }else{
+            }
+        }
+    }
 
     //取り消し機能
     deleteTodo(todo, i){
@@ -121,13 +149,14 @@ class App extends Component {
           <div id="rodal">
               <Rodal visible={this.state.visible}
                      onClose={this.hide.bind(this)}
-                     width="400"
+                     width={400}
                      enterAnimation="slideUp"
                      leaveAnimation="slideUp">
                   <div>
                       <p>変更内容を入力してください。</p>
 
-                      <Input_modal changeTodo={this.changeTodo}/>
+                      <Input_modal changeTodo={this.changeTodo}
+                                   Enter_modal={this.Enter_modal}/>
 
                   </div>
               </Rodal>

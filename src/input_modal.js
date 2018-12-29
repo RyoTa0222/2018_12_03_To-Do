@@ -5,6 +5,7 @@ export class Input_modal extends Component {
         super(props);
         this.state = { visible: false };
         this.state = {
+            id: 0,
             todo: [
                 {title: 'Javascript覚える'},
                 {title: 'jQuery覚える'},
@@ -13,7 +14,7 @@ export class Input_modal extends Component {
                 {title: '隼人を倒す'},
             ]};
         this.changeTodo = this.changeTodo.bind(this);
-
+        this.Enter_modal=this.Enter_modal.bind(this);
     }
     changeTodo(){
         this.props.changeTodo(this.refs.modalText.value);
@@ -21,17 +22,17 @@ export class Input_modal extends Component {
 
     }
 
-    // Enter_modal(event){
-    //     if( event.keyCode === 13 ){
-    //         this.props.changeTodo(this.refs.newText.value);
-    //         this.refs.newText.value='';
-    //         this.setState({ visible: false });
-    //     }
-    // }
+    Enter_modal(event){
+        if( event.keyCode === 13 ){
+            this.props.changeTodo(this.refs.modalText.value);
+            this.refs.modalText.value='';
+        }
+    }
+
     render(){
         return (
             <div className="input_todo">
-                <input type="text" ref="modalText" autoFocus="focus" placeholder="メモを記入してください" className="input_textarea" />
+                <input type="text" ref="modalText" autoFocus="focus" placeholder="メモを記入してください" className="input_textarea" onKeyUp={this.Enter_modal} />
                 <div className="button_input_position">
                     <button onClick={this.changeTodo}  className="button button_add">変更</button>
                 </div>
