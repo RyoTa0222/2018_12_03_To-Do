@@ -23,14 +23,16 @@ class App extends Component {
                 {title: 'React覚える'},
                 {title: '隼を倒す'},
             ]};
+
         //イベントハンドラー関数にthisをバインド
 
-        this.deleteTodo = this.deleteTodo.bind(this);
+        this.correctTodo = this.correctTodo.bind(this);
         this.changeTodo = this.changeTodo.bind(this);
         this.addTodo = this.addTodo.bind(this);
         this.show = this.show.bind(this);
         this.hide = this.hide.bind(this);
-        this.Enter_modal=this.Enter_modal.bind(this);
+        this.enterModal=this.enterModal.bind(this);
+        this.closeModal=this.closeModal.bind(this);
     }
 
     //ローディング
@@ -39,6 +41,16 @@ class App extends Component {
             document.getElementById("icon_loading").style.display = "none";
                 document.getElementById("main_todo").style.display = "block";}
             , 2000 );
+    }
+
+    componentDidMount(){
+        //localstorageから値の取得
+        var jsonObj = localStorage.getItem('Key');
+        var jsObj = JSON.parse(jsonObj);
+        //保存
+        this.setState(
+            {todo: jsObj}
+        );
     }
 
     //modalの表示
@@ -56,6 +68,15 @@ class App extends Component {
         this.setState({ visible: false });
     }
 
+
+    //modalの非表示
+    closeModal() {
+        this.setState(
+            { visible: false }
+        );
+    }
+
+
     //modalで入力した内容の更新
     changeTodo(value){
         if( value!== '' ){
@@ -66,13 +87,17 @@ class App extends Component {
             this.setState({
                 todo : modal_input
             });
+            //localstorageへの保存
+            let setjson = JSON.stringify(this.state.todo);
+            localStorage.setItem('Key', setjson);
+
             //modalの非表示
             this.setState({ visible: false });
         }else{
         }
     }
-    //Enter_modalで入力した内容の更新
-    Enter_modal(event, value){
+    //enterModalで入力した内容の更新
+    enterModal(event, value){
         if( event.keyCode === 13 ){
             if( value!=='' ){
                 //内容の変更
@@ -82,6 +107,10 @@ class App extends Component {
                 this.setState({
                     todo : modal_input
                 });
+                //localstorageへの保存
+                let setjson = JSON.stringify(this.state.todo);
+                localStorage.setItem('Key', setjson);
+
                 //modalの非表示
                 this.setState({ visible: false });
             }else{
@@ -100,6 +129,10 @@ class App extends Component {
             this.setState({
                 todo : this.state.todo
             });
+            //localstorageへの保存
+            let setjson = JSON.stringify(this.state.todo);
+            localStorage.setItem('Key', setjson);
+
         }else{
         }
     }
@@ -116,13 +149,16 @@ class App extends Component {
                 this.setState({
                     todo : this.state.todo
                 });
+                //localstorageへの保存
+                let setjson = JSON.stringify(this.state.todo);
+                localStorage.setItem('Key', setjson);
             }else{
             }
         }
     }
 
     //取り消し機能
-    deleteTodo(todo, i){
+    correctTodo(todo, i){
         //コピー
         const todo_delete = this.state.todo.slice();
         //取り消し線
@@ -132,6 +168,7 @@ class App extends Component {
             todo : todo_delete
         });
     }
+
 
     render() {
     return (
@@ -143,20 +180,23 @@ class App extends Component {
               <Input Enter={this.Enter}
                      addTodo={this.addTodo}/>
               <List todo={this.state.todo}
-                    deleteTodo={this.deleteTodo}
+                    correctTodo={this.correctTodo}
                     show={this.show}/>
           </div>
           <div id="rodal">
               <Rodal visible={this.state.visible}
                      onClose={this.hide.bind(this)}
                      width={400}
-                     enterAnimation="slideUp"
-                     leaveAnimation="slideUp">
-                  <div>
+                     enterAnimation="door"
+                     leaveAnimation="door"
+                     showCloseButton={false}>
+                  <div className="modal_content">
                       <p>変更内容を入力してください。</p>
 
-                      <Input_modal changeTodo={this.changeTodo}
-                                   Enter_modal={this.Enter_modal}/>
+                      <Input_modal closeModal={this.closeModal}
+                                   changeTodo={this.changeTodo}
+                                   enterModal={this.enterModal}
+                                   />
 
                   </div>
               </Rodal>

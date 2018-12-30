@@ -58,6 +58,14 @@
     position: absolute;
     bottom: 0;
 }
+/*modal*/
+.modal_content{
+    margin-top: 2rem;
+    margin-left: -0.5rem;
+}
+.modal_content p{
+    margin-left: 2.5rem;
+}
 
 /*完了ボタン、変更ボタン、追加ボタン（共通）*/
 .button{
@@ -132,6 +140,15 @@
 .button_add::after{
     background: deepskyblue;
 }
+/*modalの完了、閉じるボタン*/
+.button_modal{
+    border: solid 2px gray;
+    color: gray;
+}
+.button_modal::before,
+.button_modal::after{
+    background: gray;
+}
 
 /*ボタンの位置（リスト）*/
 .btn_list_position{
@@ -148,6 +165,18 @@
     z-index: 100;
 }
 
+/*ボタンの位置（modal）*/
+.button_modal{
+    position: absolute;
+    right:0;
+    margin: 1.5rem 0;
+}
+.button_modal_close{
+    margin-right: 5rem;
+}
+.button_modal_change{
+    right: -5px;
+}
 
 /*入力要素*/
 
@@ -181,6 +210,35 @@
     outline: none;
 }
 
+/*modalの入力*/
+.input_modal{
+    width: 80%;
+    position: relative;
+    margin: 0 auto;
+}
+.input_modal input[type="text"]{
+    width : 100%;
+    padding: 16px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    border: solid 2px gray;
+    word-break: keep-all;
+    white-space: normal;
+    text-indent: 1rem;
+}
+.input_modal ::-webkit-input-placeholder{
+    font-size: 1rem;
+    color: #bfc5ca;
+}
+.input_modal input[type="text"]:focus{
+    border: solid 2px gray;
+    outline: none;
+    background: #f3ecd8;
+}
+.input_modal input[type="text"]:active{
+    outline: none;
+}
 
 /*メディアクエリ　768pxより小さい場合*/
 @media screen and (max-width: 720px){
