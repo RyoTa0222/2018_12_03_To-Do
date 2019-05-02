@@ -3,6 +3,9 @@ import React, {Component} from 'react';
 export class Input extends Component {
     constructor(props){
         super(props);
+
+//イベントハンドラー関数にthisをバインド
+
         this.addTodo = this.addTodo.bind(this);
         this.Enter = this.Enter.bind(this);
     }

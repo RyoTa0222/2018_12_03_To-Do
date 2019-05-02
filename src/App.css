@@ -9,7 +9,9 @@
     display: none;
 
 }
-
+#Reset{
+    text-decoration: none;
+}
 
 /*タイトル*/
 .title{
