@@ -16,7 +16,7 @@ class App extends Component {
             id: 0,
             todo: [
                 { title: 'Javascript覚える', complete: true },
-                { title: 'jQuery覚える', complete: true },
+                { title: 'jQuery覚えるのは保留', complete: true },
                 { title: 'ES2015覚える', complete: true },
                 { title: 'React覚える', complete: true },
                 { title: '隼を倒す', complete: true },
