@@ -31,7 +31,6 @@ class App extends Component {
         this.changeTodo = this.changeTodo.bind(this);
         this.addTodo = this.addTodo.bind(this);
         this.show = this.show.bind(this);
-        this.hide = this.hide.bind(this);
         this.enterModal = this.enterModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
     }
@@ -60,11 +59,6 @@ class App extends Component {
             visible: true
         });
     }
-    //modalの非表示
-    hide() {
-        this.setState({ visible: false });
-    }
-
 
     //modalの非表示
     closeModal = () => {
@@ -205,7 +199,7 @@ class App extends Component {
                         </div>
                         <div id="rodal">
                             <Rodal visible={this.state.visible}
-                                onClose={this.hide.bind(this)}
+                                onClose={this.closeModal}
                                 width={400}
                                 enterAnimation="door"
                                 leaveAnimation="door"
