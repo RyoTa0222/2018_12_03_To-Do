@@ -1,16 +1,16 @@
 /*ローディング*/
-#icon_loading{
+
+.icon_show{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     height: 100vh;
 }
-#main_todo{
-    display: none;
-
+.show{
+    display: block;
 }
-#Reset{
-    text-decoration: none;
+.unshow{
+    display: none;
 }
 
 /*タイトル*/

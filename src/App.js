@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { List } from './list.js';
 import { Input } from './input.js';
-import { Input_modal } from './input_modal.js';
+import { InputModal } from './InputModal.js';
 import './App.css';
 import Loader from 'react-loader-spinner';
 import Rodal from 'rodal';
@@ -15,11 +15,11 @@ class App extends Component {
         this.state = {
             id: 0,
             todo: [
-                { title: 'Javascript覚える', complete: true },
-                { title: 'jQuery覚える', complete: true },
-                { title: 'ES2015覚える', complete: true },
-                { title: 'React覚える', complete: true },
-                { title: '隼を倒す', complete: true },
+                { title: 'Javascript覚える', complete: false },
+                { title: 'jQuery覚えるのは保留', complete: false },
+                { title: 'ES2015覚える', complete: false },
+                { title: 'React覚える', complete: false },
+                { title: '隼を倒す', complete: false },
             ],
             loaded: true,
             visible: false
@@ -31,27 +31,14 @@ class App extends Component {
         this.changeTodo = this.changeTodo.bind(this);
         this.addTodo = this.addTodo.bind(this);
         this.show = this.show.bind(this);
-        this.hide = this.hide.bind(this);
         this.enterModal = this.enterModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
     }
 
-    //ローディング
     componentWillMount() {
-        setTimeout(function () {
-            document.getElementById("icon_loading").style.display = "none";
-            document.getElementById("main_todo").style.display = "block";
-        }
-            , 2000);
-
+        setTimeout(() => {
+            this.setState({ loaded: false })
+        }, 100);
     }
-
-    // componentWillMount() {
-    //     setTimeout( function() {
-    //    this.setState({loaded: false})
-    //         }
-    //         , 2000 );
-    // }
 
     componentDidMount() {
         //localstorageから値の取得
@@ -63,19 +50,12 @@ class App extends Component {
         );
     }
 
-    //modalの表示
+    // //modalの表示
     show(i) {
         this.setState({
-            id: i,
-            todo: this.state.todo,
             visible: true
         });
     }
-    //modalの非表示
-    hide() {
-        this.setState({ visible: false });
-    }
-
 
     //modalの非表示
     closeModal = () => {
@@ -84,16 +64,15 @@ class App extends Component {
         );
     }
 
-
     //modalで入力した内容の更新
     changeTodo(value) {
         if (value !== '') {
             //内容の変更
-            const modal_input = this.state.todo.slice();
-            modal_input[this.state.id] = { title: value };
+            const modalInput = this.state.todo.slice();
+            modalInput[this.state.id] = { title: value };
             //更新
             this.setState({
-                todo: modal_input
+                todo: modalInput
             });
             //localstorageへの保存
             let setjson = JSON.stringify(this.state.todo);
@@ -166,54 +145,37 @@ class App extends Component {
             }
         }
     }
-    //
-    // //取り消し機能
-    // correctTodo(todo, i){
-    //     //コピー
-    //     const todo_delete = this.state.todo.slice();
-    //     //取り消し線
-    //     todo_delete[i] = {title: {<del>todo.title</del>}};
-    //     //更新
-    //     this.setState({
-    //         todo : todo_delete
-    //     });
-    // }
 
     //取り消し機能
-    correctTodo(todo, i) {
+    correctTodo(i) {
         //コピー
-        const todo_delete = this.state.todo.slice();
-        //取り消し線
-        todo_delete[i] = {
-            id: 'Reset',
-            title: todo.title
-        };
-        console.log(todo_delete[i]);
+        const todoDelete = this.state.todo.slice();
+
+        console.log(todoDelete[i]);
         //更新
-        this.setState({
-            todo: todo_delete
-        });
-        document.getElementById(this.state.todo.id).style.textDecoration = "line-through";
+        // this.setState({
+        //     todo: todoDelete
+        // });
     }
 
     render() {
+        const { loaded } = this.state;
+
         return (
-            <div className="todo">
-                <div id="main_todo">
+            <>
+                <div id="main_todo" className={(loaded) ? "unshow" : "show"}>
                     <div className="title_group">
                         <h1 className="title">TODOアプリ</h1>
                     </div>
                     <Input Enter={this.Enter}
                         addTodo={this.addTodo} />
-                    <List todo={this.state.todo}
-                        correctTodo={this.correctTodo}
+                    <List todos={this.state}
                         show={this.show}
-                        complete={this.state.complete}
-                    />
+                        correctTodo={this.correctTodo} />
                 </div>
                 <div id="rodal">
                     <Rodal visible={this.state.visible}
-                        onClose={this.hide.bind(this)}
+                        onClose={this.closeModal}
                         width={400}
                         enterAnimation="door"
                         leaveAnimation="door"
@@ -221,14 +183,17 @@ class App extends Component {
                         <div className="modal_content">
                             <p>変更内容を入力してください。</p>
 
-                            <Input_modal closeModal={this.closeModal}
+                            <InputModal closeModal={this.closeModal}
                                 changeTodo={this.changeTodo}
                                 enterModal={this.enterModal}
                             />
                         </div>
                     </Rodal>
                 </div>
-                <div id="icon_loading" className="icon_loading">
+
+
+
+                <div className={(loaded) ? "icon_show" : "unshow"}>
                     <Loader loaded={this.state.loaded}
                         type="CradleLoader"
                         color="#000"
@@ -236,8 +201,8 @@ class App extends Component {
                         width="100"
                     />
                 </div>
-            </div>
-        );
+            </>
+        )
     }
 }
 
