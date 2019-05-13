@@ -60,9 +60,9 @@ class App extends Component {
 
     //modalの非表示
     closeModal = () => {
-        this.setState(
-            { visible: false }
-        );
+        this.setState({
+            visible: false
+        });
     }
 
     //modalで入力した内容の更新
@@ -71,6 +71,7 @@ class App extends Component {
             //内容の変更
             const modalInput = this.state.todo.slice();
             modalInput[this.state.id] = { title: value };
+
             //更新
             this.setState({
                 todo: modalInput
@@ -109,40 +110,52 @@ class App extends Component {
     }
 
     //新規追加
-    addTodo(value) {
-        if (value !== '') {
+    addTodo() {
+        var { todo } = this.refs.inputValue.state;
+        if (this.refs.inputValue.state.value !== '') {
+            var todoValue = this.refs.inputValue.state.value;
             //追加
-            this.state.todo.push({
-                title: value
+            todo.push({
+                title: todoValue,
+                complete: false
             });
             //更新
             this.setState({
-                todo: this.state.todo
+                todo: todo
             });
             //localstorageへの保存
             let setjson = JSON.stringify(this.state.todo);
             localStorage.setItem('Key', setjson);
+            //inputの中身を空にする
+            this.refs.inputValue.state.value = '';
 
         } else {
+            return 0;
         }
     }
 
     //Enter_新規追加
-    Enter(event, value) {
-        if (event.keyCode === 13) {
-            if (value !== '') {
+    enterAdd(e) {
+        var { todo } = this.refs.inputValue.state;
+        if (e.keyCode === 13) {
+            if (this.refs.inputValue.state.value !== '') {
+                var todoValue = this.refs.inputValue.state.value;
                 //追加
-                this.state.todo.push({
-                    title: value
+                todo.push({
+                    title: todoValue,
+                    complete: false
                 });
                 //更新
                 this.setState({
-                    todo: this.state.todo
+                    todo: todo
                 });
                 //localstorageへの保存
                 let setjson = JSON.stringify(this.state.todo);
                 localStorage.setItem('Key', setjson);
+                //inputの中身を空にする
+                this.refs.inputValue.state.value = '';
             } else {
+                return 0;
             }
         }
     }
@@ -161,15 +174,17 @@ class App extends Component {
 
     render() {
         const { loaded } = this.state;
-
+        //console.log(this.refs.newText.value)
         return (
             <>
                 <div id="main_todo" className={(loaded) ? "unshow" : "show"}>
                     <div className="title_group">
                         <h1 className="title">TODOアプリ</h1>
                     </div>
-                    <Input Enter={this.Enter}
-                        addTodo={this.addTodo} />
+                    <Input enterAdd={this.enterAdd}
+                        addTodo={this.addTodo}
+                        ref="inputValue"
+                        infos={this.state.todo} />
                     <List todos={this.state}
                         show={this.show}
                         correctTodo={this.correctTodo} />
@@ -191,9 +206,6 @@ class App extends Component {
                         </div>
                     </Rodal>
                 </div>
-
-
-
                 <div className={(loaded) ? "icon_show" : "unshow"}>
                     <Loader loaded={this.state.loaded}
                         type="CradleLoader"
