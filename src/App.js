@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { List } from './list.js';
 import { Input } from './input.js';
-import { Input_modal } from './input_modal.js';
+import { InputModal } from './InputModal.js';
 import './App.css';
 import Loader from 'react-loader-spinner';
 import Rodal from 'rodal';
@@ -221,7 +221,7 @@ class App extends Component {
                         <div className="modal_content">
                             <p>変更内容を入力してください。</p>
 
-                            <Input_modal closeModal={this.closeModal}
+                            <InputModal closeModal={this.closeModal}
                                 changeTodo={this.changeTodo}
                                 enterModal={this.enterModal}
                             />
