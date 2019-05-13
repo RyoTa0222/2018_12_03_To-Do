@@ -20,6 +20,7 @@ class App extends Component {
                 { title: 'ES2015覚える', complete: false },
                 { title: 'React覚える', complete: false },
                 { title: '隼を倒す', complete: false },
+                { title: '6', complete: false },
             ],
             loaded: true,
             visible: false
