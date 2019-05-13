@@ -9,11 +9,8 @@
 .show{
     display: block;
 }
-.unshown{
+.unshow{
     display: none;
-}
-#Reset{
-    text-decoration: none;
 }
 
 /*タイトル*/

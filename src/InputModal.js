@@ -3,17 +3,6 @@ import React, { Component } from 'react';
 export class InputModal extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            id: 0,
-            todo: [
-                { title: 'Javascript覚える' },
-                { title: 'jQuery覚える' },
-                { title: 'ES2015覚える' },
-                { title: 'React覚える' },
-                { title: '隼人を倒す' },
-            ],
-            visible: false
-        };
 
         //イベントハンドラー関数にthisをバインド
 
