@@ -36,22 +36,11 @@ class App extends Component {
         this.closeModal = this.closeModal.bind(this);
     }
 
-    //ローディング
     componentWillMount() {
-        setTimeout(function () {
-            document.getElementById("icon_loading").style.display = "none";
-            document.getElementById("main_todo").style.display = "block";
-        }
-            , 2000);
-
+        setTimeout(() => {
+            this.setState({ loaded: false })
+        }, 2000);
     }
-
-    // componentWillMount() {
-    //     setTimeout( function() {
-    //    this.setState({loaded: false})
-    //         }
-    //         , 2000 );
-    // }
 
     componentDidMount() {
         //localstorageから値の取得
@@ -197,46 +186,54 @@ class App extends Component {
     }
 
     render() {
+        const { loaded } = this.state;
         return (
-            <div className="todo">
-                <div id="main_todo">
-                    <div className="title_group">
-                        <h1 className="title">TODOアプリ</h1>
-                    </div>
-                    <Input Enter={this.Enter}
-                        addTodo={this.addTodo} />
-                    <List todo={this.state.todo}
-                        correctTodo={this.correctTodo}
-                        show={this.show}
-                        complete={this.state.complete}
-                    />
-                </div>
-                <div id="rodal">
-                    <Rodal visible={this.state.visible}
-                        onClose={this.hide.bind(this)}
-                        width={400}
-                        enterAnimation="door"
-                        leaveAnimation="door"
-                        showCloseButton={false}>
-                        <div className="modal_content">
-                            <p>変更内容を入力してください。</p>
-
-                            <InputModal closeModal={this.closeModal}
-                                changeTodo={this.changeTodo}
-                                enterModal={this.enterModal}
+            <>
+                {!loaded && (
+                    <>
+                        <div id="main_todo" className="show">
+                            <div className="title_group">
+                                <h1 className="title">TODOアプリ</h1>
+                            </div>
+                            <Input Enter={this.Enter}
+                                addTodo={this.addTodo} />
+                            <List todo={this.state.todo}
+                                correctTodo={this.correctTodo}
+                                show={this.show}
+                                complete={this.state.complete}
                             />
                         </div>
-                    </Rodal>
-                </div>
-                <div id="icon_loading" className="icon_loading">
-                    <Loader loaded={this.state.loaded}
-                        type="CradleLoader"
-                        color="#000"
-                        height="100"
-                        width="100"
-                    />
-                </div>
-            </div>
+                        <div id="rodal">
+                            <Rodal visible={this.state.visible}
+                                onClose={this.hide.bind(this)}
+                                width={400}
+                                enterAnimation="door"
+                                leaveAnimation="door"
+                                showCloseButton={false}>
+                                <div className="modal_content">
+                                    <p>変更内容を入力してください。</p>
+
+                                    <InputModal closeModal={this.closeModal}
+                                        changeTodo={this.changeTodo}
+                                        enterModal={this.enterModal}
+                                    />
+                                </div>
+                            </Rodal>
+                        </div>
+                    </>
+                )}
+
+                {loaded && (
+                    <div className="icon_show">
+                        <Loader loaded={this.state.loaded}
+                            type="CradleLoader"
+                            color="#000"
+                            height="100"
+                            width="100"
+                        />
+                    </div>
+                )}
+            </>
         );
     }
 }

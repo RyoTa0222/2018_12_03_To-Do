@@ -1,13 +1,16 @@
 /*ローディング*/
-#icon_loading{
+
+.icon_show{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     height: 100vh;
 }
-#main_todo{
+.show{
+    display: block;
+}
+.unshown{
     display: none;
-
 }
 #Reset{
     text-decoration: none;
