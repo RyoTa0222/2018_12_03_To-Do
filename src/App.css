@@ -68,7 +68,10 @@
 .modal_content p{
     margin-left: 2.5rem;
 }
-
+/* 取り消し線 */
+.stroke{
+    text-decoration: line-through;
+}
 /*完了ボタン、変更ボタン、追加ボタン（共通）*/
 .button{
     margin: 1rem 0;

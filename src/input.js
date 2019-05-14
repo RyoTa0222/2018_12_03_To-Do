@@ -15,12 +15,12 @@ export class Input extends Component {
         })
     }
     render() {
+
         const handleOnChange = (e) => {
-            var value = e.target.value;
+            var { value } = e.target;
             this.setState({
                 value: value,
             })
-            console.log(this.state)
         }
         return (
             <div className="input_todo">

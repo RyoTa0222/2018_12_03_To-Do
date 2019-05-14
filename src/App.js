@@ -55,6 +55,7 @@ class App extends Component {
     // //modalの表示
     show(i) {
         this.setState({
+            id: i,
             visible: true
         });
     }
@@ -67,47 +68,56 @@ class App extends Component {
     }
 
     //modalで入力した内容の更新
-    changeTodo(value) {
+    changeTodo() {
+        var { todo } = this.state;
+        console.log(todo)
+        var { value } = this.refs.inputModal.state;
+        var modalInput = todo.slice();
         if (value !== '') {
             //内容の変更
-            const modalInput = this.state.todo.slice();
-            modalInput[this.state.id] = { title: value };
-
+            modalInput[this.state.id] = { title: value, complete: false };
+            console.log(modalInput)
             //更新
             this.setState({
-                todo: modalInput
+                todo: modalInput,
+                visible: false
             });
+
             // //localstorageへの保存
             // let setjson = JSON.stringify(this.state.todo);
             // localStorage.setItem('Key', setjson);
 
-            //modalの非表示
-            this.setState({ visible: false });
         } else {
-            return;
+            return 0;
         }
+
+        this.refs.inputModal.state.value = '';
     }
     //enterModalで入力した内容の更新
-    enterModal(event, value) {
-        if (event.keyCode === 13) {
+    enterModal(e) {
+        var { todo } = this.state;
+        var { value } = this.refs.inputModal.state;
+        if (e.keyCode === 13) {
             if (value !== '') {
                 //内容の変更
-                const modal_input = this.state.todo.slice();
-                modal_input[this.state.id] = { title: value };
+                var modalInput = todo.slice();
+                modalInput[this.state.id] = { title: value, complete: false };
                 //更新
                 this.setState({
-                    todo: modal_input
+                    todo: modalInput,
+                    visible: false
                 });
                 // //localstorageへの保存
                 // let setjson = JSON.stringify(this.state.todo);
                 // localStorage.setItem('Key', setjson);
 
-                //modalの非表示
-                this.setState({ visible: false });
             } else {
-                return;
+                return 0;
             }
+        } else {
+            return 0;
         }
+        this.refs.inputModal.state.value = '';
     }
 
     //新規追加
@@ -167,19 +177,18 @@ class App extends Component {
     //取り消し機能
     correctTodo(i) {
         //コピー
-        const todoDelete = this.state.todo.slice();
-
+        var { todo } = this.state;
+        console.log(todo)
+        const todoDelete = todo.slice();
+        todoDelete[i].complete = (todoDelete[i].complete) ? false : true;
         //更新
-        // this.setState({
-        //     todo: todoDelete
-        // });
+        this.setState({
+            todo: todoDelete
+        });
     }
 
     render() {
         const { loaded } = this.state;
-        console.log("start");
-        console.log(this.state.todo);
-        console.log("end")
         return (
             <>
                 <div id="main_todo" className={(loaded) ? "unshow" : "show"}>
@@ -190,7 +199,7 @@ class App extends Component {
                         addTodo={this.addTodo}
                         ref="inputValue"
                         infos={this.state.todo} />
-                    <List todos={this.state}
+                    <List todos={this.state.todo}
                         show={this.show}
                         correctTodo={this.correctTodo} />
                 </div>
@@ -207,6 +216,8 @@ class App extends Component {
                             <InputModal closeModal={this.closeModal}
                                 changeTodo={this.changeTodo}
                                 enterModal={this.enterModal}
+                                ref="inputModal"
+                                infosModal={this.state.todo}
                             />
                         </div>
                     </Rodal>
