@@ -7,6 +7,7 @@ import './App.css';
 import Loader from 'react-loader-spinner';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
+import {Clock} from './clock';
 
 //親コンポーネント(app)
 class App extends Component {
@@ -23,7 +24,8 @@ class App extends Component {
             ],
             id: 0,
             loaded: true,
-            visible: false
+            visible: false,
+            // date: moment(),
         };
 
         //イベントハンドラー関数にthisをバインド
@@ -195,6 +197,7 @@ class App extends Component {
                     <div className="title_group">
                         <h1 className="title">TODOアプリ</h1>
                     </div>
+                    <Clock />
                     <Input enterAdd={this.enterAdd}
                         addTodo={this.addTodo}
                         ref="inputValue"
