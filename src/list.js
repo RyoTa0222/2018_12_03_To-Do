@@ -12,7 +12,6 @@ export class List extends Component {
         })
     }
     render() {
-        console.log(this.props.show)
         return (
             <ul className="ul_todo">
                 {this.state.informations.todo.map((todo, i) => {

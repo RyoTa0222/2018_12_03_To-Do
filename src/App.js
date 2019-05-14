@@ -13,7 +13,6 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: 0,
             todo: [
                 { title: 'Javascript覚える', complete: false },
                 { title: 'jQuery覚えるのは保留', complete: false },
@@ -22,6 +21,7 @@ class App extends Component {
                 { title: '隼を倒す', complete: false },
                 { title: '6', complete: false },
             ],
+            id: 0,
             loaded: true,
             visible: false
         };
@@ -31,6 +31,7 @@ class App extends Component {
         this.correctTodo = this.correctTodo.bind(this);
         this.changeTodo = this.changeTodo.bind(this);
         this.addTodo = this.addTodo.bind(this);
+        this.enterAdd = this.enterAdd.bind(this);
         this.show = this.show.bind(this);
         this.enterModal = this.enterModal.bind(this);
     }
@@ -41,15 +42,15 @@ class App extends Component {
         }, 100);
     }
 
-    componentDidMount() {
-        //localstorageから値の取得
-        var jsonObj = localStorage.getItem('Key');
-        var jsObj = JSON.parse(jsonObj);
-        //保存
-        this.setState(
-            { todo: jsObj }
-        );
-    }
+    // componentDidMount() {
+    //     //localstorageから値の取得
+    //     var jsonObj = localStorage.getItem('Key');
+    //     var jsObj = JSON.parse(jsonObj);
+    //     //保存
+    //     this.setState(
+    //         { todo: jsObj }
+    //     );
+    // }
 
     // //modalの表示
     show(i) {
@@ -76,9 +77,9 @@ class App extends Component {
             this.setState({
                 todo: modalInput
             });
-            //localstorageへの保存
-            let setjson = JSON.stringify(this.state.todo);
-            localStorage.setItem('Key', setjson);
+            // //localstorageへの保存
+            // let setjson = JSON.stringify(this.state.todo);
+            // localStorage.setItem('Key', setjson);
 
             //modalの非表示
             this.setState({ visible: false });
@@ -97,9 +98,9 @@ class App extends Component {
                 this.setState({
                     todo: modal_input
                 });
-                //localstorageへの保存
-                let setjson = JSON.stringify(this.state.todo);
-                localStorage.setItem('Key', setjson);
+                // //localstorageへの保存
+                // let setjson = JSON.stringify(this.state.todo);
+                // localStorage.setItem('Key', setjson);
 
                 //modalの非表示
                 this.setState({ visible: false });
@@ -112,52 +113,55 @@ class App extends Component {
     //新規追加
     addTodo() {
         var { todo } = this.refs.inputValue.state;
-        if (this.refs.inputValue.state.value !== '') {
-            var todoValue = this.refs.inputValue.state.value;
+        var { value } = this.refs.inputValue.state;
+        if (value !== '') {
             //追加
             todo.push({
-                title: todoValue,
+                title: value,
                 complete: false
             });
             //更新
             this.setState({
                 todo: todo
             });
-            //localstorageへの保存
-            let setjson = JSON.stringify(this.state.todo);
-            localStorage.setItem('Key', setjson);
-            //inputの中身を空にする
-            this.refs.inputValue.state.value = '';
+            // //localstorageへの保存
+            // let setjson = JSON.stringify(this.state.todo);
+            // localStorage.setItem('Key', setjson);
 
         } else {
             return 0;
         }
+        //inputの中身を空にする
+        this.refs.inputValue.state.value = '';
     }
 
     //Enter_新規追加
     enterAdd(e) {
         var { todo } = this.refs.inputValue.state;
+        var { value } = this.refs.inputValue.state;
         if (e.keyCode === 13) {
-            if (this.refs.inputValue.state.value !== '') {
-                var todoValue = this.refs.inputValue.state.value;
+            if (value !== '') {
                 //追加
                 todo.push({
-                    title: todoValue,
+                    title: value,
                     complete: false
                 });
                 //更新
                 this.setState({
                     todo: todo
                 });
-                //localstorageへの保存
-                let setjson = JSON.stringify(this.state.todo);
-                localStorage.setItem('Key', setjson);
-                //inputの中身を空にする
-                this.refs.inputValue.state.value = '';
+                // //localstorageへの保存
+                // let setjson = JSON.stringify(this.state.todo);
+                // localStorage.setItem('Key', setjson);
+
             } else {
                 return 0;
             }
+        } else {
+            return 0;
         }
+        //inputの中身を空にする
+        this.refs.inputValue.state.value = '';
     }
 
     //取り消し機能
@@ -165,7 +169,6 @@ class App extends Component {
         //コピー
         const todoDelete = this.state.todo.slice();
 
-        console.log(todoDelete[i]);
         //更新
         // this.setState({
         //     todo: todoDelete
@@ -174,7 +177,9 @@ class App extends Component {
 
     render() {
         const { loaded } = this.state;
-        //console.log(this.refs.newText.value)
+        console.log("start");
+        console.log(this.state.todo);
+        console.log("end")
         return (
             <>
                 <div id="main_todo" className={(loaded) ? "unshow" : "show"}>

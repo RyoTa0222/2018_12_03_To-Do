@@ -20,11 +20,11 @@ export class Input extends Component {
             this.setState({
                 value: value,
             })
-            console.log(this.state.value)
+            console.log(this.state)
         }
         return (
             <div className="input_todo">
-                <input type="text" value={this.state.value} autoFocus="focus" placeholder="メモを記入してください" className="input_textarea" onChange={e => handleOnChange(e)} onKeyUp={(e) => this.props.enterAdd(e)} />
+                <input type="text" value={this.state.value} autoFocus="focus" placeholder="メモを記入してください" className="input_textarea" onChange={e => handleOnChange(e)} onKeyUp={e => this.props.enterAdd(e)} />
                 <div className="button_input_position">
                     <button onClick={() => this.props.addTodo()} className="button button_add">追加</button>
                 </div>
