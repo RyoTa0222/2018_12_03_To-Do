@@ -34,6 +34,7 @@ class App extends Component {
         this.enterAdd = this.enterAdd.bind(this);
         this.show = this.show.bind(this);
         this.enterModal = this.enterModal.bind(this);
+        this.deleteTodo = this.deleteTodo.bind(this);
     }
 
     UNSAFE_componentWillMount() {
@@ -187,13 +188,24 @@ class App extends Component {
     correctTodo(i) {
         //コピー
         var { todo } = this.state;
-        console.log(todo)
-        const todoDelete = todo.slice();
-        todoDelete[i].complete = (todoDelete[i].complete) ? false : true;
+        const todoCorrect = todo.slice();
+        todoCorrect[i].complete = (todoCorrect[i].complete) ? false : true;
         //更新
         this.setState({
-            todo: todoDelete
+            todo: todoCorrect
         });
+        //localstorageへの保存
+        let setjson = JSON.stringify(this.state.todo);
+        localStorage.setItem('Key', setjson);
+    }
+    //削除機能
+    deleteTodo(i) {
+        var { todo } = this.state;
+        todo.splice(i, 1);
+        console.log(todo)
+        this.setState({
+            todo: todo
+        })
         //localstorageへの保存
         let setjson = JSON.stringify(this.state.todo);
         localStorage.setItem('Key', setjson);
@@ -201,10 +213,6 @@ class App extends Component {
 
     render() {
         const { loaded } = this.state;
-        // //localstorageに書き込み
-        // let setjson = JSON.stringify(this.state.todo);
-        // localStorage.setItem('Key', setjson);
-
         return (
             <>
                 <div id="main_todo" className={(loaded) ? "unshow" : "show"}>
@@ -218,7 +226,8 @@ class App extends Component {
                         infos={this.state.todo} />
                     <List todos={this.state.todo}
                         show={this.show}
-                        correctTodo={this.correctTodo} />
+                        correctTodo={this.correctTodo}
+                        deleteTodo={this.deleteTodo} />
                 </div>
                 <div id="rodal">
                     <Rodal visible={this.state.visible}
