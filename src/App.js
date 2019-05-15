@@ -7,7 +7,7 @@ import './App.css';
 import Loader from 'react-loader-spinner';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
-import {Clock} from './clock';
+import { Clock } from './clock';
 
 //親コンポーネント(app)
 class App extends Component {
@@ -20,12 +20,10 @@ class App extends Component {
                 { title: 'ES2015覚える', complete: false },
                 { title: 'React覚える', complete: false },
                 { title: '隼を倒す', complete: false },
-                { title: '6', complete: false },
             ],
             id: 0,
             loaded: true,
             visible: false,
-            // date: moment(),
         };
 
         //イベントハンドラー関数にthisをバインド
@@ -38,21 +36,30 @@ class App extends Component {
         this.enterModal = this.enterModal.bind(this);
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         setTimeout(() => {
             this.setState({ loaded: false })
         }, 100);
-    }
+        //localstorageから値の取得
+        var jsonObj = localStorage.getItem('Key');
+        var jsObj = JSON.parse(jsonObj);
+        if (!jsonObj) {
+            //localstorageに書き込み
+            let setjson = JSON.stringify(this.state.todo);
+            localStorage.setItem('Key', setjson);
+            //保存
+            this.setState(
+                { todo: jsObj }
+            );
+        } else {
+            //保存
+            this.setState(
+                { todo: jsObj }
+            );
+        }
 
-    // componentDidMount() {
-    //     //localstorageから値の取得
-    //     var jsonObj = localStorage.getItem('Key');
-    //     var jsObj = JSON.parse(jsonObj);
-    //     //保存
-    //     this.setState(
-    //         { todo: jsObj }
-    //     );
-    // }
+
+    }
 
     // //modalの表示
     show(i) {
@@ -85,9 +92,9 @@ class App extends Component {
                 visible: false
             });
 
-            // //localstorageへの保存
-            // let setjson = JSON.stringify(this.state.todo);
-            // localStorage.setItem('Key', setjson);
+            //localstorageへの保存
+            let setjson = JSON.stringify(this.state.todo);
+            localStorage.setItem('Key', setjson);
 
         } else {
             return 0;
@@ -109,9 +116,9 @@ class App extends Component {
                     todo: modalInput,
                     visible: false
                 });
-                // //localstorageへの保存
-                // let setjson = JSON.stringify(this.state.todo);
-                // localStorage.setItem('Key', setjson);
+                //localstorageへの保存
+                let setjson = JSON.stringify(this.state.todo);
+                localStorage.setItem('Key', setjson);
 
             } else {
                 return 0;
@@ -136,9 +143,9 @@ class App extends Component {
             this.setState({
                 todo: todo
             });
-            // //localstorageへの保存
-            // let setjson = JSON.stringify(this.state.todo);
-            // localStorage.setItem('Key', setjson);
+            //localstorageへの保存
+            let setjson = JSON.stringify(this.state.todo);
+            localStorage.setItem('Key', setjson);
 
         } else {
             return 0;
@@ -162,9 +169,9 @@ class App extends Component {
                 this.setState({
                     todo: todo
                 });
-                // //localstorageへの保存
-                // let setjson = JSON.stringify(this.state.todo);
-                // localStorage.setItem('Key', setjson);
+                //localstorageへの保存
+                let setjson = JSON.stringify(this.state.todo);
+                localStorage.setItem('Key', setjson);
 
             } else {
                 return 0;
@@ -187,10 +194,17 @@ class App extends Component {
         this.setState({
             todo: todoDelete
         });
+        //localstorageへの保存
+        let setjson = JSON.stringify(this.state.todo);
+        localStorage.setItem('Key', setjson);
     }
 
     render() {
         const { loaded } = this.state;
+        // //localstorageに書き込み
+        // let setjson = JSON.stringify(this.state.todo);
+        // localStorage.setItem('Key', setjson);
+
         return (
             <>
                 <div id="main_todo" className={(loaded) ? "unshow" : "show"}>
