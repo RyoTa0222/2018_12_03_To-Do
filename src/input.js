@@ -5,6 +5,7 @@ export class Input extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            value: '',
         }
         this.addTodo = this.addTodo.bind(this);
         this.enterAdd = this.enterAdd.bind(this);
@@ -45,7 +46,6 @@ export class Input extends Component {
             //localstorageへの保存
             let setjson = JSON.stringify(this.state.todo);
             localStorage.setItem('Key', setjson);
-
         } else {
             return 0;
         }
@@ -73,7 +73,6 @@ export class Input extends Component {
                 //localstorageへの保存
                 let setjson = JSON.stringify(this.state.todo);
                 localStorage.setItem('Key', setjson);
-
             } else {
                 return 0;
             }

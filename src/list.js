@@ -1,11 +1,34 @@
 import React, { Component } from 'react';
 import { InputModal } from './InputModal.js';
 import Rodal from 'rodal';
+import NotificationSystem from 'react-notification-system';
+import styled from 'styled-components';
+const Notification = styled.div`
+    text-align: center;
+    button{
+        background: rgba(54, 156, 199, .1);
+        padding: 4px 1rem;
+        width: 80%;
+        border: solid 2px rgb(54, 156, 199);
+        border-radius: 6px;
+        color: rgb(54, 156, 199);
+        cursor: pointer;
+        text-align: center;
+        font-weight: bold;
+        &:hover {
+            background: rgba(54, 156, 199, .4);
+        }
+    }
+`;
+
 export class List extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
+        this.notificationSystem = React.createRef();
+
+        this.addNotification = this.addNotification.bind(this);
         this.correctTodo = this.correctTodo.bind(this);
         this.deleteTodo = this.deleteTodo.bind(this);
         this.show = this.show.bind(this);
@@ -18,6 +41,20 @@ export class List extends Component {
         this.setState({
             todo: informations,
         })
+    }
+    //通知機能
+    addNotification(i) {
+        const notification = this.notificationSystem.current;
+        notification.addNotification({
+            level: 'info',
+            autoDismiss: 20,
+            children: (
+                <Notification>
+                    <h2><i class="far fa-trash-alt"></i>削除してもよろしいですか</h2>
+                    <button onClick={() => this.deleteTodo(i)}>Delete</button>
+                </Notification>
+            )
+        });
     }
 
     //modalの表示
@@ -45,7 +82,7 @@ export class List extends Component {
             todo: todoCorrect
         });
         //localstorageへの保存
-        let setjson = JSON.stringify(this.state.todo);
+        let setjson = JSON.stringify(todo);
         localStorage.setItem('Key', setjson);
     }
 
@@ -56,10 +93,8 @@ export class List extends Component {
         this.setState({
             todo: todo
         })
-        console.log("delete")
-        console.log(this.state.todo)
         //localstorageへの保存
-        let setjson = JSON.stringify(this.state.todo);
+        let setjson = JSON.stringify(todo);
         localStorage.setItem('Key', setjson);
     }
 
@@ -78,19 +113,18 @@ export class List extends Component {
                 todo: modalInput,
                 visible: false
             });
-
-            //localstorageへの保存
-            let setjson = JSON.stringify(this.state.todo);
-            localStorage.setItem('Key', setjson);
-
         } else {
             return;
         }
+        //localstorageへの保存
+        let setjson = JSON.stringify(modalInput);
+        localStorage.setItem('Key', setjson);
         this.refs.InputModal.state.value = '';
         console.log(this.state)
     }
     //enterModalで入力した内容の更新
     enterModal(e) {
+
         var { todo } = this.state;
         var { value } = this.refs.InputModal.state;
         var { id } = this.state;
@@ -104,9 +138,6 @@ export class List extends Component {
                     todo: modalInput,
                     visible: false
                 });
-                //localstorageへの保存
-                let setjson = JSON.stringify(this.state.todo);
-                localStorage.setItem('Key', setjson);
 
             } else {
                 return 0;
@@ -114,12 +145,17 @@ export class List extends Component {
         } else {
             return 0;
         }
+        //localstorageへの保存
+        let setjson = JSON.stringify(modalInput);
+        localStorage.setItem('Key', setjson);
         this.refs.InputModal.state.value = '';
     }
 
     render() {
+        console.log(this.state)
         return (
             <>
+
                 <ul className="ul_todo">
                     {this.state.todo.map((todo, i) => {
                         return (
@@ -131,13 +167,14 @@ export class List extends Component {
                                         <button onClick={() => this.show(i)} className="button button_change">変更</button>
                                     )}
                                     {todo.complete && (
-                                        <button onClick={() => this.deleteTodo(i)} className="button button_change">削除</button>
+                                        <button onClick={() => this.addNotification(i)} className="button button_change">削除</button>
                                     )}
                                 </div>
                             </li>
                         )
                     })}
                 </ul>
+                <NotificationSystem ref={this.notificationSystem} />
                 <div id="rodal">
                     <Rodal visible={this.state.visible}
                         onClose={this.closeModal}

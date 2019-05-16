@@ -13,6 +13,14 @@
     display: none;
 }
 
+
+.notification, .notification-info, .notification-visible{
+    /* height: 300px !important; */
+}
+
+
+
+
 /*タイトル*/
 .title{
     font-size: 7vw;
