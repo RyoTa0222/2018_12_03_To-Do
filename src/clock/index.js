@@ -28,7 +28,7 @@ export class Clock extends Component {
             time: now,
             bg_white: true,
         };
-        this.setTimer();
+        // this.setTimer();
     }
     setTimer() {
         setTimeout(

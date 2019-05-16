@@ -5,17 +5,20 @@ export class InputModal extends Component {
         super(props);
         this.state = {
             value: '',
-            todo: '',
         }
         //イベントハンドラー関数にthisをバインド
 
     }
     componentWillMount() {
-        var informations = this.props.infosModal;
+        var { todo } = this.props.infosModal;
+        var { id } = this.props.infosModal;
         this.setState({
-            todo: informations,
+            todo: todo,
+            id: id,
         })
     }
+
+
 
     render() {
         const handleOnChange = (e) => {
