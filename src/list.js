@@ -50,7 +50,7 @@ export class List extends Component {
             autoDismiss: 20,
             children: (
                 <Notification>
-                    <h2><i class="far fa-trash-alt"></i>削除してもよろしいですか</h2>
+                    <h2><i className="far fa-trash-alt"></i>削除してもよろしいですか</h2>
                     <button onClick={() => this.deleteTodo(i)}>Delete</button>
                 </Notification>
             )
