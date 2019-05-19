@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+//Colorを読み込む
+import { Color } from '../Color.js';
+
 export const Container = styled.div`
     .icon_show{
     display: flex;

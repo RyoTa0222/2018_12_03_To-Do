@@ -1,5 +1,8 @@
 import styled, { css } from 'styled-components';
 
+//Colorを読み込む
+import { Color } from '../Color.js';
+
 export const ClockContainer = styled.div`
     font-size: 3rem;
     width: 70%;

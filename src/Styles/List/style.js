@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
-const Color = {
-    Red: '#f00',
-    Green: '#7cfc00',
-}
+//Colorを読み込む
+import { Color } from '../Color.js';
+
 export const Notification = styled.div`
     text-align: center;
     h2{
@@ -119,24 +118,24 @@ export const ButtonContainer = styled.div`
     }
 `;
 export const ButtonDelete = styled.button`
-    border: solid 2px ${Color.Red};
-    color: ${Color.Red};
+    border: solid 2px ${Color.red};
+    color: ${Color.red};
     &::before, &::after{
-        background: ${Color.Red};
+        background: ${Color.red};
     }
     @media (max-width: 720px){
-        border: solid 1px ${Color.Red};
+        border: solid 1px ${Color.red};
     }
 `;
 export const ButtonChange = styled.button`
-    border: solid 2px ${Color.Green};
-    color: ${Color.Green};
+    border: solid 2px ${Color.green};
+    color: ${Color.green};
     margin: 1rem;
     &::before, &::after{
-        background: ${Color.Green};
+        background: ${Color.green};
     }
     @media (max-width: 720px){
-        border: solid 1px ${Color.Green};
+        border: solid 1px ${Color.green};
         margin: 1rem 0.5rem;
     }
 `;
