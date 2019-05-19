@@ -1,24 +1,9 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import styled, { css } from 'styled-components';
 
-const ClockContainer = styled.div`
-    font-size: 3rem;
-    width: 70%;
-    margin: 0 auto;
-    text-align: right;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    -webkit-letter-spacing: 2px;
-    letter-spacing: 2px;
-    ${props => props.white && css`
-    background: white;
-    color: black;
-  `}
-    ${props => props.black && css`
-    background: black;
-    color: white;
-  `}
-`;
+//styles
+import { ClockContainer } from '../../Styles/Clock/style.js';
+
 
 export class Clock extends Component {
     constructor(props) {

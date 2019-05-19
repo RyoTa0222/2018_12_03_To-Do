@@ -1,13 +1,13 @@
 //ファイルのインポート
 import React, { Component } from 'react';
-
 import { Input } from './input.js';
-
-import './App.css';
 import Loader from 'react-loader-spinner';
-
 import 'rodal/lib/rodal.css';
 import { Clock } from './clock';
+
+//Styles
+import { Container } from '../Styles/Common/style.js';
+import { TitleContainer } from '../Styles/Common/style.js';
 
 //親コンポーネント(app)
 class App extends Component {
@@ -52,11 +52,11 @@ class App extends Component {
     render() {
         const { loaded } = this.state;
         return (
-            <>
+            <Container>
                 <div id="main_todo" className={(loaded) ? "unshow" : "show"}>
-                    <div className="title_group">
-                        <h1 className="title">TODOアプリ</h1>
-                    </div>
+                    <TitleContainer>
+                        <h1>TODOアプリ</h1>
+                    </TitleContainer>
                     <Clock />
                     <Input enterAdd={this.enterAdd}
                         addTodo={this.addTodo}
@@ -73,7 +73,7 @@ class App extends Component {
                         width="100"
                     />
                 </div>
-            </>
+            </Container>
         )
     }
 }
