@@ -30,7 +30,7 @@ class App extends Component {
     UNSAFE_componentWillMount() {
         setTimeout(() => {
             this.setState({ loaded: false })
-        }, 100);
+        }, 1000);
         //localstorageから値の取得
         var jsonObj = localStorage.getItem('Key');
         var jsObj = JSON.parse(jsonObj);
@@ -38,10 +38,6 @@ class App extends Component {
             //localstorageに書き込み
             let setjson = JSON.stringify(this.state.todo);
             localStorage.setItem('Key', setjson);
-            //保存
-            this.setState(
-                { todo: jsObj }
-            );
         } else {
             //保存
             this.setState(
