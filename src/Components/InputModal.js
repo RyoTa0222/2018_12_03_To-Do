@@ -11,21 +11,28 @@ export class InputModal extends Component {
         this.state = {
             value: '',
         }
-        //イベントハンドラー関数にthisをバインド
-
+        //イベントハンドラ関数にthisをバインド
+        //this.showValue = this.showValue.bind(this);
     }
     componentWillMount() {
         var { todo } = this.props.infosModal;
-        var { id } = this.props.infosModal;
         this.setState({
             todo: todo,
-            id: id,
         })
     }
 
-
+    // showValue() {
+    //     var { value } = this.props.infosModal;
+    //     this.setState({
+    //         value: value,
+    //     });
+    // }
 
     render() {
+        console.log('props');
+        console.log(this.props.infosModal.value);
+        console.log('state');
+        console.log(this.state);
         const handleOnChange = (e) => {
             var { value } = e.target;
             this.setState({
@@ -33,11 +40,11 @@ export class InputModal extends Component {
             })
         }
         return (
-            <Modal>
+            < Modal >
                 <input type="text" value={this.state.value} autoFocus="focus" placeholder="メモを記入してください" onChange={e => handleOnChange(e)} onKeyUp={e => this.props.enterModal(e)} />
                 <ButtonModalClose onClick={this.props.closeModal} className="button button_modal_close button_modal">閉じる</ButtonModalClose>
                 <ButtonModalChange onClick={() => this.props.changeTodo()} className="button button_modal_change button_modal">変更</ButtonModalChange>
-            </Modal>
+            </Modal >
         )
     }
 }

@@ -127,7 +127,7 @@ export class Input extends Component {
                         <AddButton onClick={() => this.addTodo()}>追加</AddButton>
                     </AddButtonContainer>
                 </FormContainer>
-                <List todos={this.state.todo}
+                <List todos={this.state}
                     show={this.show}
                     correctTodo={this.correctTodo}
                     deleteTodo={this.deleteTodo} />

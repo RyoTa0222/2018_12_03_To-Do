@@ -15,7 +15,6 @@ export class Clock extends Component {
             o_clock: o_clock,
         };
         this.setTimer();
-        console.log(this.state.o_clock)
     }
     setTimer() {
         setTimeout(
