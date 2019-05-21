@@ -16,14 +16,16 @@ export const FormContainer = styled.div`
         font-size: 2rem;
         font-weight: bold;
         border-radius: 5px;
-        border: solid 2px #00aeef;
+        background: ${Color.black};
+        border: solid 2px ${Color.inputBorder};
         word-break: keep-all;
         white-space: normal;
         text-indent: 1rem;
+        color: ${Color.white};
         &:focus{
-            border: solid 2px #00aeef;
+            border: solid 2px ${Color.inputBorder};
             outline: none;
-            background: rgba(173,224,238,0.3);
+            background: ${Color.inputFocus};
         }
         &:active{
             outline: none;
@@ -36,7 +38,7 @@ export const FormContainer = styled.div`
     &::-webkit-input-placeholder{
         font-size: 2rem;
         padding-left: 0.5rem;
-        color: #bfc5ca;
+        color: ${Color.placeholder};
         @media (max-width: 720px){
             font-size: 1rem;
             padding-left: 0.5rem;
@@ -67,9 +69,9 @@ export const AddButtonContainer = styled.div`
             content: '';
             position: absolute;
             z-index: -1;
-            height: 100%;
+            height: 104%;
             left: 0;
-            top: 0;
+            top: -1px;
             width: 0;
         }
         &::before{
@@ -78,7 +80,7 @@ export const AddButtonContainer = styled.div`
             z-index: -1;
         }
         &:hover{
-            color:white;
+            color:${Color.white};
             cursor: pointer;
             &::after{
                 width: 100%;
@@ -95,17 +97,17 @@ export const AddButtonContainer = styled.div`
 `;
 
 export const AddButton = styled.button`
-    border: solid 2px deepskyblue;
-    color: deepskyblue;
-    background: white !important;
+    border: solid 2px ${Color.addButton};
+    color: ${Color.addButton};
+    background: ${Color.black} !important;
     display: block !important;
     margin: 0 1rem !important;
     z-index: -2 !important;
     &::before, &::after{
-        background: deepskyblue;
+        background: ${Color.addButton};
     }
     @media (max-width: 720px){
-        border: solid 1px deepskyblue;
+        border: solid 1px ${Color.addButton};
         margin: 0 0.5rem;
     }
 `;

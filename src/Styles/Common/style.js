@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Color } from '../Color.js';
 
 export const Container = styled.div`
+    background: ${Color.black};
     .icon_show{
     display: flex;
     justify-content: center;
@@ -22,5 +23,8 @@ export const TitleContainer = styled.div`
     position: relative;
     h1{
         font-size: 7vw;
+        margin: 0;
+        color: ${Color.white};
+        padding: 2rem 0;
     }
 `;

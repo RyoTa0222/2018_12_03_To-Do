@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { List } from './list.js';
 import NotificationSystem from 'react-notification-system';
-
+import moment from 'moment';
 //styles
 import { FormContainer } from '../Styles/Input/style.js';
 import { AddButtonContainer } from '../Styles/Input/style.js';
@@ -40,11 +40,15 @@ export class Input extends Component {
     addTodo() {
         var { todo } = this.state;
         var { value } = this.state;
+        var month = moment().format('M');
+        var day = moment().format('D');
         if (value !== '') {
             //追加
             todo.push({
                 title: value,
-                complete: false
+                complete: false,
+                Month: month,
+                Day: day,
             });
             //更新
             this.setState({
@@ -72,12 +76,16 @@ export class Input extends Component {
     enterAdd(e) {
         var { todo } = this.state;
         var { value } = this.state;
+        var month = moment().format('M');
+        var day = moment().format('D');
         if (e.keyCode === 13) {
             if (value !== '') {
                 //追加
                 todo.push({
                     title: value,
-                    complete: false
+                    complete: false,
+                    Month: month,
+                    Day: day,
                 });
                 //更新
                 this.setState({

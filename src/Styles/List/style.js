@@ -3,6 +3,41 @@ import styled from 'styled-components';
 //Colorを読み込む
 import { Color } from '../Color.js';
 
+export const DateContainer = styled.div`
+    display: inline-block;
+    margin-right: 1rem;
+    height: 90px;
+    width: 90px;
+    font-size: 1.4rem;
+    div{
+        width: 60px;
+        height: 60px;
+        position: relative;
+        &::after{
+                content: '';
+                display: inline;
+                position: absolute;
+                bottom: 50%;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                border-radius: 5px;
+                background: white;
+                transform: rotate(-45deg);
+            }
+        span{
+            position: absolute;
+        }
+        span[data-date='month']{
+            top: 5px;
+            left: 5px;
+        }
+        span[data-date='day']{
+            bottom: 5px;
+            right: 5px;
+    }
+`;
+
 export const Notification = styled.div`
     text-align: center;
     h2{
@@ -30,8 +65,9 @@ export const Notification = styled.div`
 `;
 export const ListContainer = styled.ul`
     list-style: none;
-    margin:0 auto 30px;
+    margin:0 auto;
     padding: 0;
+    padding-bottom: 8rem;
     li{
         width: 70%;
         padding: 2rem 0;
@@ -40,13 +76,14 @@ export const ListContainer = styled.ul`
         font-weight: bold;
         margin: 0 auto;
         position: relative;
-        text-indent: 2rem;
+        text-indent: 6rem;
+        color: ${Color.white};
         &::after{
             content: "";
             display: block;
             width: 100%;
             height: 2px;
-            background:#a1a3a6;
+            background:${Color.underline};
             position: absolute;
             bottom: 0;
         }
@@ -55,6 +92,15 @@ export const ListContainer = styled.ul`
             padding: 1rem 0;
             font-size: 1rem;
             text-indent: 1rem;
+        }
+        ${DateContainer}{
+            position: absolute;
+            left: 0;
+            top: 0;
+            text-indent: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
     li.stroke{
@@ -86,6 +132,7 @@ export const ButtonContainer = styled.div`
         border-radius: 5px;
         position: relative;
         transition: all 0.3s ease-in-out;
+        z-index: 100;
         &::after{
             transition: all 0.3s ease-in-out;
             content: '';
@@ -102,7 +149,7 @@ export const ButtonContainer = styled.div`
             z-index: -1;
         }
         &:hover{
-            color:white;
+            color: ${Color.white};
             cursor: pointer;
             &::after{
                 width: 100%;
@@ -122,20 +169,43 @@ export const ButtonDelete = styled.button`
     color: ${Color.red};
     &::before, &::after{
         background: ${Color.red};
+        z-index: 1000;
     }
     @media (max-width: 720px){
         border: solid 1px ${Color.red};
     }
+    &[data-button = 'delete']{
+        border: solid 2px ${Color.purple};
+        color: ${Color.purple};
+        &::before, &::after{
+            background: ${Color.purple};
+            z-index: 1000;
+        }
+        @media (max-width: 720px){
+            border: solid 1px ${Color.purple};
+        }
+    }
 `;
 export const ButtonChange = styled.button`
-    border: solid 2px ${Color.green};
-    color: ${Color.green};
+    border: solid 2px ${Color.changeColor};
+    color: ${Color.changeColor};
     margin: 1rem;
     &::before, &::after{
-        background: ${Color.green};
+        background: ${Color.changeColor};
+        z-index: 1000;
+    }
+    &[data-delete = 'true']{
+        border: solid 2px ${Color.deleteColor};
+        color: ${Color.deleteColor};
+        &::before, &::after{
+            background: ${Color.deleteColor};
+        }
     }
     @media (max-width: 720px){
-        border: solid 1px ${Color.green};
+        border: solid 1px ${Color.changeColor};
         margin: 1rem 0.5rem;
+        &[data-delete = 'true']{
+            border: solid 1px ${Color.deleteColor};
+        }
     }
 `;

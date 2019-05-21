@@ -15,11 +15,11 @@ class App extends Component {
         super(props);
         this.state = {
             todo: [
-                { title: 'Javascript覚える', complete: false },
-                { title: 'jQuery覚えるのは保留', complete: false },
-                { title: 'ES2015覚える', complete: false },
-                { title: 'React覚える', complete: false },
-                { title: '隼を倒す', complete: false },
+                { title: 'Javascript覚える', complete: false, Month: "4", Day: "10", },
+                { title: 'jQuery覚えるのは保留', complete: false, Month: "4", Day: "20", },
+                { title: 'ES2015覚える', complete: false, Month: "5", Day: "1", },
+                { title: 'React覚える', complete: false, Month: "5", Day: "5", },
+                { title: '隼を倒す', complete: false, Month: "5", Day: "12", },
             ],
             id: 0,
             loaded: true,

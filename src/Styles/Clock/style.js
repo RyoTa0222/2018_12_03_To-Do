@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 //Colorを読み込む
 import { Color } from '../Color.js';
@@ -11,12 +11,17 @@ export const ClockContainer = styled.div`
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     -webkit-letter-spacing: 2px;
     letter-spacing: 2px;
-    ${props => props.white && css`
-    background: white;
-    color: black;
-  `}
-    ${props => props.black && css`
-    background: black;
-    color: white;
-  `}
+    -webkit-text-stroke: 2px transparent;
+    text-stroke: 2px transparent;
+    position: relative;
+    span:first-child{
+      margin-right: 6px;
+    }
+    span{
+      background: ${Color.gradation};
+      color: black;
+      -webkit-background-clip: text;
+      background-clip: text;
+      padding: 0 5px;
+    }
 `;

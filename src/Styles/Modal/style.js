@@ -13,14 +13,14 @@ export const Modal = styled.div`
         font-size: 1rem;
         font-weight: bold;
         border-radius: 5px;
-        border: solid 2px gray;
+        border: solid 2px ${Color.gray};
         word-break: keep-all;
         white-space: normal;
         text-indent: 1rem;
         &:focus{
-            border: solid 2px gray;
+            border: solid 2px ${Color.gray};
             outline: none;
-            background: #f3ecd8;
+            background: ${Color.modalFocus};
         }
         &:active{
             outline: none;
@@ -28,11 +28,11 @@ export const Modal = styled.div`
     }
     &::-webkit-input-placeholder{
         font-size: 1rem;
-        color: #bfc5ca;
+        color: ${Color.placeholder};
         @media (max-width: 720px){
             font-size: 1rem;
             padding-left: 0.5rem;
-            color: #bfc5ca;
+            color: ${Color.placeholder};
         }
     }
     button{
@@ -46,7 +46,7 @@ export const Modal = styled.div`
         position: absolute;
         right:0;
         margin: 1.5rem 0;
-        border: solid 2px gray;
+        border: solid 2px ${Color.gray};
         color: gray;
         &::after{
             transition: all 0.3s ease-in-out;
@@ -57,16 +57,16 @@ export const Modal = styled.div`
             left: 0;
             top: 0;
             width: 0;
-            background: gray;
+            background: ${Color.gray};
         }
         &::before{
             content: '';
             position: absolute;
             z-index: -1;
-            background: gray;
+            background: ${Color.gray};
         }
         &:hover{
-            color:white;
+            color:${Color.white};
             cursor: pointer;
             &::after{
                 width: 100%;

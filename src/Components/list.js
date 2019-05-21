@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { InputModal } from './InputModal.js';
 import Rodal from 'rodal';
 import NotificationSystem from 'react-notification-system';
+import moment from 'moment';
 
 //styles
 import { Notification } from '../Styles/List/style.js';
@@ -10,12 +11,18 @@ import { ModalContainer } from '../Styles/List/style.js';
 import { ButtonContainer } from '../Styles/List/style.js';
 import { ButtonDelete } from '../Styles/List/style.js';
 import { ButtonChange } from '../Styles/List/style.js';
+import { DateContainer } from '../Styles/List/style.js';
 
 export class List extends Component {
     constructor(props) {
         super(props);
+        var Month = moment().format('M');
+        var Day = moment().format('D');
         this.state = {
+            Month: Month,
+            Day: Day,
         };
+        console.log(this.state)
         this.notificationSystem = React.createRef();
         this.notificationSystemModal = React.createRef();
         this.addNotification = this.addNotification.bind(this);
@@ -94,9 +101,11 @@ export class List extends Component {
         var { value } = this.refs.InputModal.state;
         var { id } = this.state;
         var modalInput = todo.slice();
+        var month = moment().format('M');
+        var day = moment().format('D');
         if (value !== '') {
             //内容の変更
-            modalInput[id] = { title: value, complete: false };
+            modalInput[id] = { title: value, complete: false, Month: month, Day: day, };
             //console.log(modalInput)
             //更新
             this.setState({
@@ -124,11 +133,14 @@ export class List extends Component {
         var { todo } = this.state;
         var { value } = this.refs.InputModal.state;
         var { id } = this.state;
+        var month = moment().format('M');
+        var day = moment().format('D');
+
         if (e.keyCode === 13) {
             if (value !== '') {
                 //内容の変更
                 var modalInput = todo.slice();
-                modalInput[id] = { title: value, complete: false };
+                modalInput[id] = { title: value, complete: false, Month: month, Day: day };
                 //更新
                 this.setState({
                     todo: modalInput,
@@ -160,14 +172,19 @@ export class List extends Component {
                     {this.state.todo.map((todo, i) => {
                         return (
                             <li key={i} className={`name ${(todo.complete) ? "stroke" : ""}`}>
+                                <DateContainer>
+                                    <div>
+                                        <span data-date="month">{todo.Month}</span><span data-date="day">{todo.Day}</span>
+                                    </div>
+                                </DateContainer>
                                 {todo.title}
                                 <ButtonContainer>
-                                    <ButtonDelete onClick={() => this.correctTodo(i)}>{(todo.complete) ? "取消" : "完了"}</ButtonDelete>
+                                    <ButtonDelete onClick={() => this.correctTodo(i)} data-button={(todo.complete) ? "delete" : "complete"} >{(todo.complete) ? "取消" : "完了"}</ButtonDelete>
                                     {!todo.complete && (
                                         <ButtonChange onClick={() => this.show(i)}>変更</ButtonChange>
                                     )}
                                     {todo.complete && (
-                                        <ButtonChange onClick={() => this.addNotification(i)}>削除</ButtonChange>
+                                        <ButtonChange data-delete onClick={() => this.addNotification(i)}>削除</ButtonChange>
                                     )}
                                 </ButtonContainer>
                             </li>
