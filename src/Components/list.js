@@ -2,32 +2,29 @@ import React, { Component } from 'react';
 import { InputModal } from './InputModal.js';
 import Rodal from 'rodal';
 import NotificationSystem from 'react-notification-system';
-import styled from 'styled-components';
-const Notification = styled.div`
-    text-align: center;
-    button{
-        background: rgba(54, 156, 199, .1);
-        padding: 4px 1rem;
-        width: 80%;
-        border: solid 2px rgb(54, 156, 199);
-        border-radius: 6px;
-        color: rgb(54, 156, 199);
-        cursor: pointer;
-        text-align: center;
-        font-weight: bold;
-        &:hover {
-            background: rgba(54, 156, 199, .4);
-        }
-    }
-`;
+import moment from 'moment';
+
+//styles
+import { Notification } from '../Styles/List/style.js';
+import { ListContainer } from '../Styles/List/style.js';
+import { ModalContainer } from '../Styles/List/style.js';
+import { ButtonContainer } from '../Styles/List/style.js';
+import { ButtonDelete } from '../Styles/List/style.js';
+import { ButtonChange } from '../Styles/List/style.js';
+import { DateContainer } from '../Styles/List/style.js';
 
 export class List extends Component {
     constructor(props) {
         super(props);
+        var Month = moment().format('M');
+        var Day = moment().format('D');
         this.state = {
+            Month: Month,
+            Day: Day,
         };
+        console.log(this.state)
         this.notificationSystem = React.createRef();
-
+        this.notificationSystemModal = React.createRef();
         this.addNotification = this.addNotification.bind(this);
         this.correctTodo = this.correctTodo.bind(this);
         this.deleteTodo = this.deleteTodo.bind(this);
@@ -50,7 +47,7 @@ export class List extends Component {
             autoDismiss: 20,
             children: (
                 <Notification>
-                    <h2><i class="far fa-trash-alt"></i>削除してもよろしいですか</h2>
+                    <h2><i className="far fa-trash-alt"></i>削除してもよろしいですか</h2>
                     <button onClick={() => this.deleteTodo(i)}>Delete</button>
                 </Notification>
             )
@@ -104,9 +101,11 @@ export class List extends Component {
         var { value } = this.refs.InputModal.state;
         var { id } = this.state;
         var modalInput = todo.slice();
+        var month = moment().format('M');
+        var day = moment().format('D');
         if (value !== '') {
             //内容の変更
-            modalInput[id] = { title: value, complete: false };
+            modalInput[id] = { title: value, complete: false, Month: month, Day: day, };
             //console.log(modalInput)
             //更新
             this.setState({
@@ -114,25 +113,34 @@ export class List extends Component {
                 visible: false
             });
         } else {
-            return;
+            const notification = this.notificationSystemModal.current;
+            notification.addNotification({
+                level: 'error',
+                autoDismiss: 5,
+                title: "記入がありません",
+                message: "変更内容を記入してください"
+            });
         }
         //localstorageへの保存
         let setjson = JSON.stringify(modalInput);
         localStorage.setItem('Key', setjson);
         this.refs.InputModal.state.value = '';
-        console.log(this.state)
     }
+
     //enterModalで入力した内容の更新
     enterModal(e) {
 
         var { todo } = this.state;
         var { value } = this.refs.InputModal.state;
         var { id } = this.state;
+        var month = moment().format('M');
+        var day = moment().format('D');
+
         if (e.keyCode === 13) {
             if (value !== '') {
                 //内容の変更
                 var modalInput = todo.slice();
-                modalInput[id] = { title: value, complete: false };
+                modalInput[id] = { title: value, complete: false, Month: month, Day: day };
                 //更新
                 this.setState({
                     todo: modalInput,
@@ -140,7 +148,13 @@ export class List extends Component {
                 });
 
             } else {
-                return 0;
+                const notification = this.notificationSystemModal.current;
+                notification.addNotification({
+                    level: 'error',
+                    autoDismiss: 5,
+                    title: "記入がありません",
+                    message: "変更内容を記入してください"
+                });
             }
         } else {
             return 0;
@@ -152,29 +166,33 @@ export class List extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <>
-
-                <ul className="ul_todo">
+                <ListContainer>
                     {this.state.todo.map((todo, i) => {
                         return (
                             <li key={i} className={`name ${(todo.complete) ? "stroke" : ""}`}>
+                                <DateContainer>
+                                    <div>
+                                        <span data-date="month">{todo.Month}</span><span data-date="day">{todo.Day}</span>
+                                    </div>
+                                </DateContainer>
                                 {todo.title}
-                                <div className="btn_list_position">
-                                    <button onClick={() => this.correctTodo(i)} className="button button_delete">{(todo.complete) ? "取消" : "完了"}</button>
+                                <ButtonContainer>
+                                    <ButtonDelete onClick={() => this.correctTodo(i)} data-button={(todo.complete) ? "delete" : "complete"} >{(todo.complete) ? "取消" : "完了"}</ButtonDelete>
                                     {!todo.complete && (
-                                        <button onClick={() => this.show(i)} className="button button_change">変更</button>
+                                        <ButtonChange onClick={() => this.show(i)}>変更</ButtonChange>
                                     )}
                                     {todo.complete && (
-                                        <button onClick={() => this.addNotification(i)} className="button button_change">削除</button>
+                                        <ButtonChange data-delete onClick={() => this.addNotification(i)}>削除</ButtonChange>
                                     )}
-                                </div>
+                                </ButtonContainer>
                             </li>
                         )
                     })}
-                </ul>
+                </ListContainer>
                 <NotificationSystem ref={this.notificationSystem} />
+                <NotificationSystem ref={this.notificationSystemModal} />
                 <div id="rodal">
                     <Rodal visible={this.state.visible}
                         onClose={this.closeModal}
@@ -182,7 +200,7 @@ export class List extends Component {
                         enterAnimation="door"
                         leaveAnimation="door"
                         showCloseButton={false}>
-                        <div className="modal_content">
+                        <ModalContainer>
                             <p>変更内容を入力してください。</p>
 
                             <InputModal closeModal={this.closeModal}
@@ -191,7 +209,7 @@ export class List extends Component {
                                 ref="InputModal"
                                 infosModal={this.state}
                             />
-                        </div>
+                        </ModalContainer>
                     </Rodal>
                 </div>
             </>
