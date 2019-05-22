@@ -21,8 +21,8 @@ export class List extends Component {
         this.state = {
             Month: Month,
             Day: Day,
+            value: '',
         };
-        console.log(this.state)
         this.notificationSystem = React.createRef();
         this.notificationSystemModal = React.createRef();
         this.addNotification = this.addNotification.bind(this);
@@ -34,9 +34,12 @@ export class List extends Component {
         this.enterModal = this.enterModal.bind(this);
     }
     componentWillMount() {
-        var informations = this.props.todos;
+        var { todo } = this.props.todos;
+        var { id } = this.props.todos;
         this.setState({
-            todo: informations,
+            todo: todo,
+            id: id,
+            value: '',
         })
     }
     //通知機能
@@ -56,10 +59,13 @@ export class List extends Component {
 
     //modalの表示
     show(i) {
+        //var { todo } = this.state;
         this.setState({
             id: i,
-            visible: true
+            visible: true,
+            //value: todo[i].title,
         });
+        //this.refs.InputModal.showValue();
     }
     //modalの非表示
     closeModal() {
@@ -106,7 +112,7 @@ export class List extends Component {
         if (value !== '') {
             //内容の変更
             modalInput[id] = { title: value, complete: false, Month: month, Day: day, };
-            //console.log(modalInput)
+
             //更新
             this.setState({
                 todo: modalInput,
@@ -208,6 +214,7 @@ export class List extends Component {
                                 enterModal={this.enterModal}
                                 ref="InputModal"
                                 infosModal={this.state}
+                                show={this.show}
                             />
                         </ModalContainer>
                     </Rodal>

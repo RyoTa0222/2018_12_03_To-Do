@@ -179,7 +179,6 @@ export const ButtonDelete = styled.button`
         color: ${Color.purple};
         &::before, &::after{
             background: ${Color.purple};
-            z-index: 1000;
         }
         @media (max-width: 720px){
             border: solid 1px ${Color.purple};
@@ -192,7 +191,6 @@ export const ButtonChange = styled.button`
     margin: 1rem;
     &::before, &::after{
         background: ${Color.changeColor};
-        z-index: 1000;
     }
     &[data-delete = 'true']{
         border: solid 2px ${Color.deleteColor};
