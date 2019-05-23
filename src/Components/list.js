@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { InputModal } from './InputModal.js';
 import Rodal from 'rodal';
 import NotificationSystem from 'react-notification-system';
 import moment from 'moment';
@@ -12,6 +11,9 @@ import { ButtonContainer } from '../Styles/List/style.js';
 import { ButtonDelete } from '../Styles/List/style.js';
 import { ButtonChange } from '../Styles/List/style.js';
 import { DateContainer } from '../Styles/List/style.js';
+import { Modal } from '../Styles/Modal/style.js';
+import { ButtonModalChange } from '../Styles/Modal/style.js';
+import { ButtonModalClose } from '../Styles/Modal/style.js';
 
 export class List extends Component {
     constructor(props) {
@@ -59,13 +61,12 @@ export class List extends Component {
 
     //modalの表示
     show(i) {
-        //var { todo } = this.state;
+        var { todo } = this.state;
         this.setState({
             id: i,
             visible: true,
-            //value: todo[i].title,
+            value: todo[i].title,
         });
-        //this.refs.InputModal.showValue();
     }
     //modalの非表示
     closeModal() {
@@ -104,7 +105,7 @@ export class List extends Component {
     //modalで入力した内容の更新
     changeTodo() {
         var { todo } = this.state;
-        var { value } = this.refs.InputModal.state;
+        var { value } = this.state;
         var { id } = this.state;
         var modalInput = todo.slice();
         var month = moment().format('M');
@@ -130,14 +131,16 @@ export class List extends Component {
         //localstorageへの保存
         let setjson = JSON.stringify(modalInput);
         localStorage.setItem('Key', setjson);
-        this.refs.InputModal.state.value = '';
+        this.setState({
+            value: '',
+        })
     }
 
     //enterModalで入力した内容の更新
     enterModal(e) {
 
         var { todo } = this.state;
-        var { value } = this.refs.InputModal.state;
+        var { value } = this.state;
         var { id } = this.state;
         var month = moment().format('M');
         var day = moment().format('D');
@@ -168,10 +171,18 @@ export class List extends Component {
         //localstorageへの保存
         let setjson = JSON.stringify(modalInput);
         localStorage.setItem('Key', setjson);
-        this.refs.InputModal.state.value = '';
+        this.setState({
+            value: '',
+        })
     }
 
     render() {
+        const handleOnChange = (e) => {
+            var { value } = e.target;
+            this.setState({
+                value: value,
+            })
+        }
         return (
             <>
                 <ListContainer>
@@ -208,14 +219,11 @@ export class List extends Component {
                         showCloseButton={false}>
                         <ModalContainer>
                             <p>変更内容を入力してください。</p>
-
-                            <InputModal closeModal={this.closeModal}
-                                changeTodo={this.changeTodo}
-                                enterModal={this.enterModal}
-                                ref="InputModal"
-                                infosModal={this.state}
-                                show={this.show}
-                            />
+                            < Modal >
+                                <input type="text" value={this.state.value} autoFocus="focus" placeholder="メモを記入してください" onChange={e => handleOnChange(e)} onKeyUp={e => this.enterModal(e)} />
+                                <ButtonModalClose onClick={this.closeModal} className="button button_modal_close button_modal">閉じる</ButtonModalClose>
+                                <ButtonModalChange onClick={() => this.changeTodo()} className="button button_modal_change button_modal">変更</ButtonModalChange>
+                            </Modal >
                         </ModalContainer>
                     </Rodal>
                 </div>
